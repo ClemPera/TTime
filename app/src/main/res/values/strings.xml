@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Test app time</string>
+    <string-array name="octet">
+        <item>Octet</item>
+        <item>Ko</item>
+        <item>Mo</item>
+        <item>Go</item>
+        <item>To</item>        
+    </string-array>
+    <string-array name="bitpersec">
+        <item>Bps</item>
+        <item>Kbps</item>
+        <item>Mbps</item>
+        <item>Gbps</item>
+    </string-array>
+</resources>
