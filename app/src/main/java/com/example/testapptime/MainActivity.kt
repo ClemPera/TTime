@@ -11,14 +11,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
-        /*TODO : Enlever le bouton OK et faire "en réel"
+        /*TODO : Enlever le bouton OK et faire "en temps réel"
                 Remplacer "bande passante" par "débit" pour moins long
                 Ajouter Octet/s Mo/s, etc....
                 Voir pour les EditText vide pour pas que ça plante
                 Augmenter la taille du radio
-                Changer le titre de l'app*/
+                Changer le titre de l'app
+                Ajouter un bouton "clear" pour toutes les datas*/
 
         //When the app starting, transferTime radio is preselected
         /*
@@ -27,7 +26,8 @@ class MainActivity : AppCompatActivity() {
         hoursTF.isEnabled = false
         minutesTF.isEnabled = false
         secondsTF.isEnabled = false
-*/
+        */
+
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
             if (checkedId == R.id.transferTime) {
                 var resultValue = 0.0
@@ -43,125 +43,39 @@ class MainActivity : AppCompatActivity() {
                 button.setOnClickListener {
                     when (spinner.selectedItem) {
                         "Octet" -> {
-                            when (spinner2.selectedItem) {
-                                "Bps" -> {
-                                    resultValue =  (editTextData.text.toString()
-                                        .toDouble() * 8) / editTextBandwidth.text.toString()
-                                        .toDouble()
-
-                                }
-                                "Kbps" -> {
-                                    resultValue =  (editTextData.text.toString()
-                                        .toDouble() * 8) / (editTextBandwidth.text.toString()
-                                        .toDouble()*1024)
-                                }
-                                "Mbps" -> {
-                                    resultValue =  (editTextData.text.toString()
-                                        .toDouble() * 8) / ((editTextBandwidth.text.toString()
-                                        .toDouble()*1024)*1024)
-                                }
-                                "Gbps" -> {
-                                    resultValue =  (editTextData.text.toString()
-                                        .toDouble() * 8) / (((editTextBandwidth.text.toString()
-                                        .toDouble()*1024)*1024)*1024)
-                                }
-                            }
+                            resultValue =  (editTextData.text.toString()
+                                .toDouble() * 8)
                         }
                         "Ko" -> {
-                            when (spinner2.selectedItem) {
-                                "Bps" -> {
-                                    resultValue =  ((editTextData.text.toString()
-                                        .toDouble() * 8)*1024) / editTextBandwidth.text.toString()
-                                        .toDouble()
-                                }
-                                "Kbps" -> {
-                                    resultValue =  ((editTextData.text.toString()
-                                        .toDouble() * 8)*1024) / (editTextBandwidth.text.toString()
-                                        .toDouble()*1024)
-                                }
-                                "Mbps" -> {
-                                    resultValue =  ((editTextData.text.toString()
-                                        .toDouble() * 8)*1024) / ((editTextBandwidth.text.toString()
-                                        .toDouble()*1024)*1024)
-                                }
-                                "Gbps" -> {
-                                    resultValue =  ((editTextData.text.toString()
-                                        .toDouble() * 8)*1024) / (((editTextBandwidth.text.toString()
-                                        .toDouble()*1024)*1024)*1024)
-                                }
-                            }
+                            resultValue =  ((editTextData.text.toString()
+                                .toDouble() * 8)*1024)
                         }
                         "Mo" -> {
-                            when (spinner2.selectedItem) {
-                                "Bps" -> {
-                                    resultValue =  (((editTextData.text.toString()
-                                        .toDouble() * 8)*1024)*1024) / editTextBandwidth.text.toString()
-                                        .toDouble()
-                                }
-                                "Kbps" -> {
-                                    resultValue =  (((editTextData.text.toString()
-                                        .toDouble() * 8)*1024)*1024) / (editTextBandwidth.text.toString()
-                                        .toDouble()*1024)
-                                }
-                                "Mbps" -> {
-                                    resultValue =  (((editTextData.text.toString()
-                                        .toDouble() * 8)*1024)*1024) / ((editTextBandwidth.text.toString()
-                                        .toDouble()*1024)*1024)
-                                }
-                                "Gbps" -> {
-                                    resultValue =  (((editTextData.text.toString()
-                                        .toDouble() * 8)*1024)*1024) / (((editTextBandwidth.text.toString()
-                                        .toDouble()*1024)*1024)*1024)
-                                }
-                            }
+                            resultValue =  (((editTextData.text.toString()
+                                .toDouble() * 8)*1024)*1024)
                         }
                         "Go" -> {
-                            when (spinner2.selectedItem) {
-                                "Bps" -> {
-                                    resultValue =  ((((editTextData.text.toString()
-                                        .toDouble() * 8)*1024)*1024)*1024) / editTextBandwidth.text.toString()
-                                        .toDouble()
-                                }
-                                "Kbps" -> {
-                                    resultValue =  ((((editTextData.text.toString()
-                                        .toDouble() * 8)*1024)*1024)*1024) / (editTextBandwidth.text.toString()
-                                        .toDouble()*1024)
-                                }
-                                "Mbps" -> {
-                                    resultValue =  ((((editTextData.text.toString()
-                                        .toDouble() * 8)*1024)*1024)*1024) / ((editTextBandwidth.text.toString()
-                                        .toDouble()*1024)*1024)
-                                }
-                                "Gbps" -> {
-                                    resultValue =  ((((editTextData.text.toString()
-                                        .toDouble() * 8)*1024)*1024)*1024) / (((editTextBandwidth.text.toString()
-                                        .toDouble()*1024)*1024)*1024)
-                                }
-                            }
+                            resultValue =  ((((editTextData.text.toString()
+                                .toDouble() * 8)*1024)*1024)*1024)
                         }
                         "To" -> {
-                            when (spinner2.selectedItem) {
-                                "Bps" -> {
-                                    resultValue =  (((((editTextData.text.toString()
-                                        .toDouble() * 8)*1024)*1024)*1024)*1024) / editTextBandwidth.text.toString()
-                                        .toDouble()
-                                }
-                                "Kbps" -> {
-                                    resultValue =  (((((editTextData.text.toString()
-                                        .toDouble() * 8)*1024)*1024)*1024)*1024) / (editTextBandwidth.text.toString()
-                                        .toDouble()*1024)
-                                }
-                                "Mbps" -> {
-                                    resultValue =  (((((editTextData.text.toString()
-                                        .toDouble() * 8)*1024)*1024)*1024)*1024) / ((editTextBandwidth.text.toString()
-                                        .toDouble()*1024)*1024)
-                                }
-                                "Gbps" -> {
-                                    resultValue =  (((((editTextData.text.toString()
-                                        .toDouble() * 8)*1024)*1024)*1024)*1024) / (((editTextBandwidth.text.toString()
-                                        .toDouble()*1024)*1024)*1024)
-                                }
-                            }
+                            resultValue =  (((((editTextData.text.toString()
+                                .toDouble() * 8)*1024)*1024)*1024)*1024)
+                        }
+                    }
+
+                    when (spinner2.selectedItem) {
+                        "Bps" -> {
+                            resultValue /= editTextBandwidth.text.toString().toDouble() //TODO : modify this
+                        }
+                        "Kbps" -> {
+                            resultValue /= (editTextBandwidth.text.toString().toDouble() * 1024)
+                        }
+                        "Mbps" -> {
+                            resultValue /=  ((editTextBandwidth.text.toString().toDouble()*1024)*1024)
+                        }
+                        "Gbps" -> {
+                            resultValue /=  (((editTextBandwidth.text.toString().toDouble()*1024)*1024)*1024)
                         }
                     }
 
@@ -187,13 +101,11 @@ class MainActivity : AppCompatActivity() {
                         minutes++
                     }
 
-                    //resultValue = String.format("%.3f", resultValue).toDouble() // Rounded to 3 decimal
                     daysTF.setText("$days")
                     hoursTF.setText("$hours")
                     minutesTF.setText("$minutes")
                     secondsTF.setText("%.3f".format(resultValue))
                 }
-
             }
 
             if (checkedId == R.id.dataQuantity) {
@@ -217,23 +129,39 @@ class MainActivity : AppCompatActivity() {
                     when (spinner2.selectedItem) {
                         "Bps" -> {
                             resultValue = ((editTextBandwidth.text.toString().toDouble()) / 8) * totalSec
-                            spinner.setSelection(0) //Set bandwidth spinner to Bps
                         }
                         "Kbps" -> {
-                            resultValue = ((((editTextBandwidth.text.toString().toDouble()) / 8)*1024) * totalSec)/1024
-                            spinner.setSelection(1) //Set bandwidth spinner to Kbps
+                            resultValue = (((editTextBandwidth.text.toString()
+                                .toDouble()) / 8) * 1024) * totalSec
 
                         }
                         "Mbps" -> {
-                            resultValue = ((((((editTextBandwidth.text.toString().toDouble())/8)*1024)*1024)*totalSec)/1024)/1024
-                            spinner.setSelection(2) //Set bandwidth spinner to Mbps
+                            resultValue = ((((editTextBandwidth.text.toString()
+                                .toDouble()) / 8) * 1024) * 1024) * totalSec
                         }
                         "Gbps" -> {
-                            resultValue = (((((((((editTextBandwidth.text.toString().toDouble()) / 8)*1024)*1024)*1024) * totalSec)/1024)/1024)/1024)
-                            spinner.setSelection(3) //Set bandwidth spinner to Mbps
+                            resultValue = (((((editTextBandwidth.text.toString()
+                                .toDouble()) / 8) * 1024) * 1024) * 1024) * totalSec
                         }
                     }
 
+                    when(spinner.selectedItem) {
+                        "Octet" -> {
+                            resultValue = resultValue //TODO : modify this
+                        }
+                        "Ko" -> {
+                            resultValue /= 1024
+                        }
+                        "Mo" -> {
+                            resultValue = resultValue /1024/1024
+                        }
+                        "Go" -> {
+                            resultValue = resultValue /1024/1024/1024
+                        }
+                        "To" -> {
+                            resultValue = resultValue /1024/1024/1024/1024
+                        }
+                    }
                     editTextData.setText("%.3f".format(resultValue))
                 }
             }
@@ -248,7 +176,7 @@ class MainActivity : AppCompatActivity() {
                 editTextBandwidth.isEnabled = false
                 editTextData.isEnabled = true
                 spinner.isEnabled = true
-                spinner2.isEnabled = false
+                spinner2.isEnabled = true
 
                 button.setOnClickListener {
                     totalSec = (daysTF.text.toString().toInt() * 86400) + (hoursTF.text.toString()
@@ -258,27 +186,41 @@ class MainActivity : AppCompatActivity() {
                     when (spinner.selectedItem) {
                         "Octet" -> {
                             resultValue = ((editTextData.text.toString().toDouble())*8)/totalSec
-                            spinner2.setSelection(0) //Set bandwidth spinner to Bps
                         }
                         "Ko" -> {
-                            resultValue = ((((editTextData.text.toString().toDouble())*8)*1024)/totalSec)/1024
-                            spinner2.setSelection(1) //Set bandwidth spinner to Kbps
+                            resultValue = (((editTextData.text.toString()
+                                .toDouble()) * 8) * 1024) / totalSec
 
                         }
                         "Mo" -> {
-                            resultValue = ((((((editTextData.text.toString().toDouble())*8)*1024)*1024)/totalSec)/1024)/1024
-                            spinner2.setSelection(2) //Set bandwidth spinner to Mbps
+                            resultValue = ((((editTextData.text.toString()
+                                .toDouble()) * 8) * 1024) * 1024) / totalSec
                         }
                         "Go" -> {
-                            resultValue = ((((((((editTextData.text.toString().toDouble())*8)*1024)*1024)*1024)/totalSec)/1024)/1024)/1024
-                            spinner2.setSelection(3) //Set bandwidth spinner to Mbps
+                            resultValue = (((((editTextData.text.toString()
+                                .toDouble()) * 8) * 1024) * 1024) * 1024) / totalSec
                         }
                         "To" -> {
-                            resultValue = (((((((((editTextData.text.toString().toDouble())*8)*1024)*1024)*1024)*1024)/totalSec)/1024)/1024)/1024
-                            spinner2.setSelection(3) //Set bandwidth spinner to Mbps
+                            resultValue = ((((((editTextData.text.toString()
+                                .toDouble()) * 8) * 1024) * 1024) * 1024) * 1024) / totalSec
                         }
                     }
 
+                    when (spinner2.selectedItem) {
+                        "Bps" -> {
+                            resultValue = resultValue //TODO : modify this
+                        }
+                        "Kbps" -> {
+                            resultValue /= 1024
+
+                        }
+                        "Mbps" -> {
+                            resultValue = resultValue / 1024 / 1024
+                        }
+                        "Gbps" -> {
+                            resultValue = resultValue /1024 / 1024 / 1024
+                        }
+                    }
                     editTextBandwidth.setText("%.3f".format(resultValue))
                 }
             }
