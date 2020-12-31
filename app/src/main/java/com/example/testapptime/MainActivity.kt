@@ -1,9 +1,19 @@
 package com.example.testapptime
 
 import android.annotation.SuppressLint
+import android.graphics.ColorSpace
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.View
+import android.widget.AdapterView
+import android.widget.EditText
+import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import kotlinx.android.synthetic.main.activity_main.*
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 class MainActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
@@ -17,9 +27,10 @@ class MainActivity : AppCompatActivity() {
                 Voir pour les EditText vide pour pas que ça plante
                 Augmenter la taille du radio
                 Changer le titre de l'app
-                Ajouter un bouton "clear" pour toutes les datas*/
+                Ajouter un bouton "clear" pour toutes <les datas
+                gérer jours/heures/minutes/secondes si vides*/
 
-        //When the app starting, transferTime radio is preselected
+        //TODO : When the app starting, transferTime radio is preselected
         /*
         radioGroup.check(R.id.transferTime)
         daysTF.isEnabled = false
@@ -29,201 +40,384 @@ class MainActivity : AppCompatActivity() {
         */
 
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
-            if (checkedId == R.id.transferTime) {
-                var resultValue = 0.0
-                daysTF.isEnabled = false
-                hoursTF.isEnabled = false
-                minutesTF.isEnabled = false
-                secondsTF.isEnabled = false
-                editTextBandwidth.isEnabled = true
-                editTextData.isEnabled = true
-                spinner.isEnabled = true
-                spinner2.isEnabled = true
-
-                button.setOnClickListener {
-                    when (spinner.selectedItem) {
-                        "Octet" -> {
-                            resultValue =  (editTextData.text.toString()
-                                .toDouble() * 8)
-                        }
-                        "Ko" -> {
-                            resultValue =  ((editTextData.text.toString()
-                                .toDouble() * 8)*1024)
-                        }
-                        "Mo" -> {
-                            resultValue =  (((editTextData.text.toString()
-                                .toDouble() * 8)*1024)*1024)
-                        }
-                        "Go" -> {
-                            resultValue =  ((((editTextData.text.toString()
-                                .toDouble() * 8)*1024)*1024)*1024)
-                        }
-                        "To" -> {
-                            resultValue =  (((((editTextData.text.toString()
-                                .toDouble() * 8)*1024)*1024)*1024)*1024)
-                        }
-                    }
-
-                    when (spinner2.selectedItem) {
-                        "Bps" -> {
-                            resultValue /= editTextBandwidth.text.toString().toDouble() //TODO : modify this
-                        }
-                        "Kbps" -> {
-                            resultValue /= (editTextBandwidth.text.toString().toDouble() * 1024)
-                        }
-                        "Mbps" -> {
-                            resultValue /=  ((editTextBandwidth.text.toString().toDouble()*1024)*1024)
-                        }
-                        "Gbps" -> {
-                            resultValue /=  (((editTextBandwidth.text.toString().toDouble()*1024)*1024)*1024)
-                        }
-                    }
-
-                    var days = 0
-                    var hours = 0
-                    var minutes = 0
-
-                    while(resultValue >= 86400)
-                    {
-                        resultValue -= 86400
-                        days++
-                    }
-
-                    while((resultValue) >= 3600)
-                    {
-                        resultValue -= 3600
-                        hours++
-                    }
-
-                    while((resultValue) >= 60)
-                    {
-                        resultValue -= 60
-                        minutes++
-                    }
-
-                    daysTF.setText("$days")
-                    hoursTF.setText("$hours")
-                    minutesTF.setText("$minutes")
-                    secondsTF.setText("%.3f".format(resultValue))
+            when (checkedId) {
+                R.id.transferTime -> {
+                    daysTF.isEnabled = false
+                    hoursTF.isEnabled = false
+                    minutesTF.isEnabled = false
+                    secondsTF.isEnabled = false
+                    editTextBandwidth.isEnabled = true
+                    editTextData.isEnabled = true
                 }
-            }
 
-            if (checkedId == R.id.dataQuantity) {
-                var resultValue = 0.0
-                var totalSec: Double
-                daysTF.isEnabled = true
-                hoursTF.isEnabled = true
-                minutesTF.isEnabled = true
-                secondsTF.isEnabled = true
-                editTextBandwidth.isEnabled = true
-                editTextData.isEnabled = false
-                spinner.isEnabled = true
-                spinner2.isEnabled = true
-
-                button.setOnClickListener {
-                    totalSec =
-                        (daysTF.text.toString().toDouble() * 86400) + (hoursTF.text.toString()
-                            .toDouble() * 3600) + (minutesTF.text.toString()
-                            .toDouble() * 60) + secondsTF.text.toString().toDouble()
-
-                    when (spinner2.selectedItem) {
-                        "Bps" -> {
-                            resultValue = ((editTextBandwidth.text.toString().toDouble()) / 8) * totalSec
-                        }
-                        "Kbps" -> {
-                            resultValue = (((editTextBandwidth.text.toString()
-                                .toDouble()) / 8) * 1024) * totalSec
-
-                        }
-                        "Mbps" -> {
-                            resultValue = ((((editTextBandwidth.text.toString()
-                                .toDouble()) / 8) * 1024) * 1024) * totalSec
-                        }
-                        "Gbps" -> {
-                            resultValue = (((((editTextBandwidth.text.toString()
-                                .toDouble()) / 8) * 1024) * 1024) * 1024) * totalSec
-                        }
-                    }
-
-                    when(spinner.selectedItem) {
-                        "Octet" -> {
-                            resultValue = resultValue //TODO : modify this
-                        }
-                        "Ko" -> {
-                            resultValue /= 1024
-                        }
-                        "Mo" -> {
-                            resultValue = resultValue /1024/1024
-                        }
-                        "Go" -> {
-                            resultValue = resultValue /1024/1024/1024
-                        }
-                        "To" -> {
-                            resultValue = resultValue /1024/1024/1024/1024
-                        }
-                    }
-                    editTextData.setText("%.3f".format(resultValue))
+                R.id.dataQuantity -> {
+                    daysTF.isEnabled = true
+                    hoursTF.isEnabled = true
+                    minutesTF.isEnabled = true
+                    secondsTF.isEnabled = true
+                    editTextBandwidth.isEnabled = true
+                    editTextData.isEnabled = false
                 }
-            }
 
-            if (checkedId == R.id.bandwidth) {
-                var resultValue = 0.0
-                var totalSec: Double
-                daysTF.isEnabled = true
-                hoursTF.isEnabled = true
-                minutesTF.isEnabled = true
-                secondsTF.isEnabled = true
-                editTextBandwidth.isEnabled = false
-                editTextData.isEnabled = true
-                spinner.isEnabled = true
-                spinner2.isEnabled = true
-
-                button.setOnClickListener {
-                    totalSec = (daysTF.text.toString().toInt() * 86400) + (hoursTF.text.toString()
-                        .toInt() * 3600) + (minutesTF.text.toString()
-                        .toInt() * 60) + secondsTF.text.toString().toDouble()
-
-                    when (spinner.selectedItem) {
-                        "Octet" -> {
-                            resultValue = ((editTextData.text.toString().toDouble())*8)/totalSec
-                        }
-                        "Ko" -> {
-                            resultValue = (((editTextData.text.toString()
-                                .toDouble()) * 8) * 1024) / totalSec
-
-                        }
-                        "Mo" -> {
-                            resultValue = ((((editTextData.text.toString()
-                                .toDouble()) * 8) * 1024) * 1024) / totalSec
-                        }
-                        "Go" -> {
-                            resultValue = (((((editTextData.text.toString()
-                                .toDouble()) * 8) * 1024) * 1024) * 1024) / totalSec
-                        }
-                        "To" -> {
-                            resultValue = ((((((editTextData.text.toString()
-                                .toDouble()) * 8) * 1024) * 1024) * 1024) * 1024) / totalSec
-                        }
-                    }
-
-                    when (spinner2.selectedItem) {
-                        "Bps" -> {
-                            resultValue = resultValue //TODO : modify this
-                        }
-                        "Kbps" -> {
-                            resultValue /= 1024
-
-                        }
-                        "Mbps" -> {
-                            resultValue = resultValue / 1024 / 1024
-                        }
-                        "Gbps" -> {
-                            resultValue = resultValue /1024 / 1024 / 1024
-                        }
-                    }
-                    editTextBandwidth.setText("%.3f".format(resultValue))
+                R.id.bandwidth -> {
+                    daysTF.isEnabled = true
+                    hoursTF.isEnabled = true
+                    minutesTF.isEnabled = true
+                    secondsTF.isEnabled = true
+                    editTextBandwidth.isEnabled = false
+                    editTextData.isEnabled = true
                 }
             }
         }
+
+        daysTF.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+                    if(daysTF.text.isNotEmpty() && hoursTF.text.isNotEmpty() && minutesTF.text.isNotEmpty() && secondsTF.text.isNotEmpty() && editTextBandwidth.text.isNotEmpty())
+                    {
+                        if(dataQuantity.isChecked)
+                            if (editTextBandwidth.text.toString().toDouble() != 0.0)
+                                calculateDataQuantity(daysTF.text.toString().toInt(), hoursTF.text.toString().toInt(), minutesTF.text.toString().toInt(), secondsTF.text.toString().toDouble(), editTextBandwidth.text.toString().toDouble())
+                            else
+                                Toast.makeText(this@MainActivity,"Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                        else if (bandwidth.isChecked)
+                            if (editTextData.text.toString().toDouble() != 0.0)
+                                calculateBandwidth(daysTF.text.toString().toInt(), hoursTF.text.toString().toInt(), minutesTF.text.toString().toInt(), secondsTF.text.toString().toDouble(), editTextData.text.toString().toDouble())
+                            else
+                                Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                    }
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        hoursTF.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+                if(daysTF.text.isNotEmpty() && hoursTF.text.isNotEmpty() && minutesTF.text.isNotEmpty() && secondsTF.text.isNotEmpty() && editTextBandwidth.text.isNotEmpty())
+                {
+                    if (dataQuantity.isChecked)
+                        if (editTextBandwidth.text.toString().toDouble() != 0.0)
+                            calculateDataQuantity(daysTF.text.toString().toInt(), hoursTF.text.toString().toInt(), minutesTF.text.toString().toInt(), secondsTF.text.toString().toDouble(), editTextBandwidth.text.toString().toDouble())
+                        else
+                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                    else if (bandwidth.isChecked)
+                        if (editTextData.text.toString().toDouble() != 0.0)
+                            calculateBandwidth(daysTF.text.toString().toInt(), hoursTF.text.toString().toInt(), minutesTF.text.toString().toInt(), secondsTF.text.toString().toDouble(), editTextData.text.toString().toDouble())
+                        else
+                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                }
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        minutesTF.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+                if(daysTF.text.isNotEmpty() && hoursTF.text.isNotEmpty() && minutesTF.text.isNotEmpty() && secondsTF.text.isNotEmpty() && editTextBandwidth.text.isNotEmpty())
+                {
+                    if (dataQuantity.isChecked)
+                        if (editTextBandwidth.text.toString().toDouble() != 0.0)
+                            calculateDataQuantity(daysTF.text.toString().toInt(), hoursTF.text.toString().toInt(), minutesTF.text.toString().toInt(), secondsTF.text.toString().toDouble(), editTextBandwidth.text.toString().toDouble())
+                        else
+                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                    else if (bandwidth.isChecked)
+                        if (editTextData.text.toString().toDouble() != 0.0)
+                            calculateBandwidth(daysTF.text.toString().toInt(), hoursTF.text.toString().toInt(), minutesTF.text.toString().toInt(), secondsTF.text.toString().toDouble(), editTextData.text.toString().toDouble())
+                        else
+                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                }
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        secondsTF.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+                if(daysTF.text.isNotEmpty() && hoursTF.text.isNotEmpty() && minutesTF.text.isNotEmpty() && secondsTF.text.isNotEmpty() && editTextBandwidth.text.isNotEmpty())
+                {
+                    if(dataQuantity.isChecked)
+                        if (editTextBandwidth.text.toString().toDouble() != 0.0)
+                            calculateDataQuantity(daysTF.text.toString().toInt(), hoursTF.text.toString().toInt(), minutesTF.text.toString().toInt(), secondsTF.text.toString().toDouble(), editTextBandwidth.text.toString().toDouble())
+                        else
+                            Toast.makeText(this@MainActivity,"Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                    else if (bandwidth.isChecked) {
+                        if (editTextData.text.toString().toDouble() != 0.0)
+                            calculateBandwidth(daysTF.text.toString().toInt(), hoursTF.text.toString().toInt(), minutesTF.text.toString().toInt(), secondsTF.text.toString().toDouble(), editTextData.text.toString().toDouble())
+                        else
+                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        editTextData.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+                if (transferTime.isChecked)
+                {
+                    if (editTextData.text.isNotEmpty() && editTextBandwidth.text.isNotEmpty())
+                        if (editTextBandwidth.text.toString().toDouble() != 0.0 && editTextData.text.toString().toDouble() != 0.0)
+                            calculateTime(editTextData.text.toString().toDouble(), editTextBandwidth.text.toString().toDouble())
+                        else
+                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                }
+                else if (bandwidth.isChecked)
+                {
+                    if (daysTF.text.isNotEmpty() && hoursTF.text.isNotEmpty() && minutesTF.text.isNotEmpty() && secondsTF.text.isNotEmpty() && editTextData.text.isNotEmpty())
+                        if (editTextData.text.toString().toDouble() != 0.0)
+                            calculateBandwidth(daysTF.text.toString().toInt(), hoursTF.text.toString().toInt(), minutesTF.text.toString().toInt(), secondsTF.text.toString().toDouble(), editTextData.text.toString().toDouble())
+                        else
+                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                }
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        editTextBandwidth.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+                if (transferTime.isChecked)
+                {
+                    if (editTextData.text.isNotEmpty() && editTextBandwidth.text.isNotEmpty())
+                        if (editTextBandwidth.text.toString().toDouble() != 0.0 && editTextData.text.toString().toDouble() != 0.0)
+                            calculateTime(editTextData.text.toString().toDouble(), editTextBandwidth.text.toString().toDouble())
+                        else
+                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                }
+                else if (dataQuantity.isChecked)
+                {
+                    if (daysTF.text.isNotEmpty() && hoursTF.text.isNotEmpty() && minutesTF.text.isNotEmpty() && secondsTF.text.isNotEmpty() && editTextBandwidth.text.isNotEmpty())
+                        if (editTextBandwidth.text.toString().toDouble() != 0.0)
+                            calculateDataQuantity(daysTF.text.toString().toInt(), hoursTF.text.toString().toInt(), minutesTF.text.toString().toInt(), secondsTF.text.toString().toDouble(), editTextBandwidth.text.toString().toDouble())
+                        else
+                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                }
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (transferTime.isChecked)
+                {
+                    if (editTextData.text.isNotEmpty() && editTextBandwidth.text.isNotEmpty())
+                        if (editTextBandwidth.text.toString().toDouble() != 0.0 && editTextData.text.toString().toDouble() != 0.0)
+                            calculateTime(editTextData.text.toString().toDouble(), editTextBandwidth.text.toString().toDouble())
+                        else
+                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                }
+                else if (dataQuantity.isChecked)
+                {
+                    if (daysTF.text.isNotEmpty() && hoursTF.text.isNotEmpty() && minutesTF.text.isNotEmpty() && secondsTF.text.isNotEmpty() && editTextBandwidth.text.isNotEmpty())
+                        if (editTextBandwidth.text.toString().toDouble() != 0.0)
+                            calculateDataQuantity(daysTF.text.toString().toInt(), hoursTF.text.toString().toInt(), minutesTF.text.toString().toInt(), secondsTF.text.toString().toDouble(), editTextBandwidth.text.toString().toDouble())
+                        else
+                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                }
+                else if (bandwidth.isChecked)
+                {
+                    if (daysTF.text.isNotEmpty() && hoursTF.text.isNotEmpty() && minutesTF.text.isNotEmpty() && secondsTF.text.isNotEmpty() && editTextData.text.isNotEmpty())
+                        if (editTextData.text.toString().toDouble() != 0.0)
+                            calculateBandwidth(daysTF.text.toString().toInt(), hoursTF.text.toString().toInt(), minutesTF.text.toString().toInt(), secondsTF.text.toString().toDouble(), editTextData.text.toString().toDouble())
+                        else
+                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        spinner2.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (transferTime.isChecked)
+                {
+                    if (editTextData.text.isNotEmpty() && editTextBandwidth.text.isNotEmpty())
+                        if (editTextBandwidth.text.toString().toDouble() != 0.0 && editTextData.text.toString().toDouble() != 0.0)
+                            calculateTime(editTextData.text.toString().toDouble(), editTextBandwidth.text.toString().toDouble())
+                        else
+                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                }
+                else if (dataQuantity.isChecked)
+                {
+                    if (daysTF.text.isNotEmpty() && hoursTF.text.isNotEmpty() && minutesTF.text.isNotEmpty() && secondsTF.text.isNotEmpty() && editTextBandwidth.text.isNotEmpty())
+                        if (editTextBandwidth.text.toString().toDouble() != 0.0)
+                            calculateDataQuantity(daysTF.text.toString().toInt(), hoursTF.text.toString().toInt(), minutesTF.text.toString().toInt(), secondsTF.text.toString().toDouble(), editTextBandwidth.text.toString().toDouble())
+                        else
+                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                }
+                else if (bandwidth.isChecked)
+                {
+                    if (daysTF.text.isNotEmpty() && hoursTF.text.isNotEmpty() && minutesTF.text.isNotEmpty() && secondsTF.text.isNotEmpty() && editTextData.text.isNotEmpty())
+                        if (editTextData.text.toString().toDouble() != 0.0)
+                            calculateBandwidth(daysTF.text.toString().toInt(), hoursTF.text.toString().toInt(), minutesTF.text.toString().toInt(), secondsTF.text.toString().toDouble(), editTextData.text.toString().toDouble())
+                        else
+                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun calculateTime(data:Double, bandwidth:Double) {
+        var resultValue = 0.0
+
+        when (spinner.selectedItem) {
+            "Octet" -> {
+                resultValue =  (editTextData.text.toString()
+                        .toDouble() * 8)
+            }
+            "Ko" -> {
+                resultValue =  ((editTextData.text.toString()
+                        .toDouble() * 8)*1024)
+            }
+            "Mo" -> {
+                resultValue =  (((editTextData.text.toString()
+                        .toDouble() * 8)*1024)*1024)
+            }
+            "Go" -> {
+                resultValue =  ((((editTextData.text.toString()
+                        .toDouble() * 8)*1024)*1024)*1024)
+            }
+            "To" -> {
+                resultValue =  (((((editTextData.text.toString()
+                        .toDouble() * 8)*1024)*1024)*1024)*1024)
+            }
+        }
+        when (spinner2.selectedItem) {
+            "Bps" -> {
+                resultValue /= editTextBandwidth.text.toString().toDouble() //TODO : modify this
+            }
+            "Kbps" -> {
+                resultValue /= (editTextBandwidth.text.toString().toDouble() * 1024)
+            }
+            "Mbps" -> {
+                resultValue /=  ((editTextBandwidth.text.toString().toDouble()*1024)*1024)
+            }
+            "Gbps" -> {
+                resultValue /=  (((editTextBandwidth.text.toString().toDouble()*1024)*1024)*1024)
+            }
+        }
+        var days = 0
+        var hours = 0
+        var minutes = 0
+
+        while(resultValue >= 86400)
+        {
+            resultValue -= 86400
+            days++
+        }
+
+        while((resultValue) >= 3600)
+        {
+            resultValue -= 3600
+            hours++
+        }
+
+        while((resultValue) >= 60)
+        {
+            resultValue -= 60
+            minutes++
+        }
+        var result = "%.3f".format(resultValue)
+        result = result.replace(',', '.')
+        daysTF.setText("$days")
+        hoursTF.setText("$hours")
+        minutesTF.setText("$minutes")
+        secondsTF.setText(result)
+    }
+
+    private fun calculateDataQuantity(days:Int, hours:Int, minutes:Int, seconds:Double, bandwidth:Double){
+        var resultValue = 0.0
+
+        var totalSec: Double = (days * 86400) + (hours * 3600) + (minutes * 60) + seconds
+
+        when (spinner2.selectedItem) {
+            "Bps" -> {
+                resultValue = (bandwidth / 8) * totalSec
+            }
+            "Kbps" -> {
+                resultValue = ((bandwidth / 8) * 1024) * totalSec
+
+            }
+            "Mbps" -> {
+                resultValue = (((bandwidth / 8) * 1024) * 1024) * totalSec
+            }
+            "Gbps" -> {
+                resultValue = ((((bandwidth / 8) * 1024) * 1024) * 1024) * totalSec
+            }
+        }
+        when(spinner.selectedItem) {
+            "Octet" -> {
+                resultValue = resultValue //TODO : modify this
+            }
+            "Ko" -> {
+                resultValue /= 1024
+            }
+            "Mo" -> {
+                resultValue = resultValue /1024/1024
+            }
+            "Go" -> {
+                resultValue = resultValue /1024/1024/1024
+            }
+            "To" -> {
+                resultValue = resultValue /1024/1024/1024/1024
+            }
+        }
+        var result = "%.3f".format(resultValue)
+        result = result.replace(',', '.')
+        editTextData.setText("$result")
+
+    }
+
+    private fun calculateBandwidth(days:Int, hours:Int, minutes:Int, seconds:Double, data:Double){
+        println("bd4")
+        var resultValue = 0.0
+        var totalSec: Double = (daysTF.text.toString().toInt() * 86400) + (hoursTF.text.toString()
+                    .toInt() * 3600) + (minutesTF.text.toString()
+                    .toInt() * 60) + secondsTF.text.toString().toDouble()
+
+        when (spinner.selectedItem) {
+            "Octet" -> {
+                resultValue = ((editTextData.text.toString().toDouble())*8)/totalSec
+            }
+            "Ko" -> {
+                resultValue = (((editTextData.text.toString()
+                        .toDouble()) * 8) * 1024) / totalSec
+
+            }
+            "Mo" -> {
+                resultValue = ((((editTextData.text.toString()
+                        .toDouble()) * 8) * 1024) * 1024) / totalSec
+            }
+            "Go" -> {
+                resultValue = (((((editTextData.text.toString()
+                        .toDouble()) * 8) * 1024) * 1024) * 1024) / totalSec
+            }
+            "To" -> {
+                resultValue = ((((((editTextData.text.toString()
+                        .toDouble()) * 8) * 1024) * 1024) * 1024) * 1024) / totalSec
+            }
+        }
+
+        when (spinner2.selectedItem) {
+            "Bps" -> {
+                resultValue = resultValue //TODO : modify this
+            }
+            "Kbps" -> {
+                resultValue /= 1024
+
+            }
+            "Mbps" -> {
+                resultValue = resultValue / 1024 / 1024
+            }
+            "Gbps" -> {
+                resultValue = resultValue /1024 / 1024 / 1024
+            }
+        }
+        println("bd5")
+        var result = "%.3f".format(resultValue)
+        result = result.replace(',', '.')
+        editTextBandwidth.setText(result)
     }
 }
