@@ -21,14 +21,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        /*TODO : Enlever le bouton OK et faire "en temps réel"
-                Remplacer "bande passante" par "débit" pour moins long
+        /*TODO : Remplacer "bande passante" par "débit" pour moins long
                 Ajouter Octet/s Mo/s, etc....
-                Voir pour les EditText vide pour pas que ça plante
                 Augmenter la taille du radio
                 Changer le titre de l'app
-                Ajouter un bouton "clear" pour toutes <les datas
-                gérer jours/heures/minutes/secondes si vides*/
+                Ajouter un bouton clear (un pour jour mois années+ un pour data + un pour bdwidth)
+                Faire pour que quand le editText est vide, cela fonctionne comme s'il était à 0*/
 
         //TODO : When the app starting, transferTime radio is preselected
         /*
@@ -285,18 +283,31 @@ class MainActivity : AppCompatActivity() {
             }
         }
         when (spinner2.selectedItem) {
-            "Bps" -> {
+            "B/s" -> {
                 resultValue /= editTextBandwidth.text.toString().toDouble() //TODO : modify this
             }
-            "Kbps" -> {
+            "Kb/s" -> {
                 resultValue /= (editTextBandwidth.text.toString().toDouble() * 1024)
             }
-            "Mbps" -> {
+            "Mb/s" -> {
                 resultValue /=  ((editTextBandwidth.text.toString().toDouble()*1024)*1024)
             }
-            "Gbps" -> {
+            "Gb/s" -> {
                 resultValue /=  (((editTextBandwidth.text.toString().toDouble()*1024)*1024)*1024)
             }
+            "O/s" -> {
+                resultValue /= (editTextBandwidth.text.toString().toDouble()*8)
+            }
+            "Ko/s" -> {
+                resultValue /= ((editTextBandwidth.text.toString().toDouble()*8)*1024)
+            }
+            "Mo/s" -> {
+                resultValue /= (((editTextBandwidth.text.toString().toDouble()*8)*1024)*1024)
+            }
+            "Go/s" -> {
+                resultValue /= ((((editTextBandwidth.text.toString().toDouble()*8)*1024)*1024)*1024)
+            }
+
         }
         var days = 0
         var hours = 0
@@ -333,18 +344,29 @@ class MainActivity : AppCompatActivity() {
         var totalSec: Double = (days * 86400) + (hours * 3600) + (minutes * 60) + seconds
 
         when (spinner2.selectedItem) {
-            "Bps" -> {
+            "B/s" -> {
                 resultValue = (bandwidth / 8) * totalSec
             }
-            "Kbps" -> {
+            "Kb/s" -> {
                 resultValue = ((bandwidth / 8) * 1024) * totalSec
-
             }
-            "Mbps" -> {
+            "Mb/s" -> {
                 resultValue = (((bandwidth / 8) * 1024) * 1024) * totalSec
             }
-            "Gbps" -> {
+            "Gb/s" -> {
                 resultValue = ((((bandwidth / 8) * 1024) * 1024) * 1024) * totalSec
+            }
+            "O/s" -> {
+                resultValue = bandwidth * totalSec
+            }
+            "Ko/s" -> {
+                resultValue = (bandwidth * 1024) * totalSec
+            }
+            "Mo/s" -> {
+                resultValue = ((bandwidth * 1024) * 1024) * totalSec
+            }
+            "Go/s" -> {
+                resultValue = (((bandwidth * 1024) * 1024) * 1024) * totalSec
             }
         }
         when(spinner.selectedItem) {
@@ -371,7 +393,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun calculateBandwidth(days:Int, hours:Int, minutes:Int, seconds:Double, data:Double){
-        println("bd4")
         var resultValue = 0.0
         var totalSec: Double = (daysTF.text.toString().toInt() * 86400) + (hoursTF.text.toString()
                     .toInt() * 3600) + (minutesTF.text.toString()
@@ -401,21 +422,33 @@ class MainActivity : AppCompatActivity() {
         }
 
         when (spinner2.selectedItem) {
-            "Bps" -> {
+            "B/s" -> {
                 resultValue = resultValue //TODO : modify this
             }
-            "Kbps" -> {
+            "Kb/s" -> {
                 resultValue /= 1024
 
             }
-            "Mbps" -> {
+            "Mb/s" -> {
                 resultValue = resultValue / 1024 / 1024
             }
-            "Gbps" -> {
+            "Gb/s" -> {
                 resultValue = resultValue /1024 / 1024 / 1024
             }
+            "O/s" -> {
+                resultValue = resultValue * 8
+            }
+            "Ko/s" -> {
+                resultValue /= 1024 * 8
+
+            }
+            "Mo/s" -> {
+                resultValue = resultValue / 1024 / 1024 * 8
+            }
+            "Go/s" -> {
+                resultValue = resultValue / 1024 / 1024 / 1024 * 8
+            }
         }
-        println("bd5")
         var result = "%.3f".format(resultValue)
         result = result.replace(',', '.')
         editTextBandwidth.setText(result)

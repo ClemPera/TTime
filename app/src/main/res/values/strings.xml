@@ -8,9 +8,13 @@
         <item>To</item>        
     </string-array>
     <string-array name="bitpersec">
-        <item>Bps</item>
-        <item>Kbps</item>
-        <item>Mbps</item>
-        <item>Gbps</item>
+        <item>B/s</item>
+        <item>Kb/s</item>
+        <item>Mb/s</item>
+        <item>Gb/s</item>
+        <item>O/s</item>
+        <item>Ko/s</item>
+        <item>Mo/s</item>
+        <item>Go/s</item>
     </string-array>
 </resources>
