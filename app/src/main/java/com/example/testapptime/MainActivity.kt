@@ -21,12 +21,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        /*TODO : Remplacer "bande passante" par "débit" pour moins long
-                Ajouter Octet/s Mo/s, etc....
+        /*TODO : Remplacer "bande passante" par "débit" pour moins long?
                 Augmenter la taille du radio
                 Changer le titre de l'app
                 Ajouter un bouton clear (un pour jour mois années+ un pour data + un pour bdwidth)
-                Faire pour que quand le editText est vide, cela fonctionne comme s'il était à 0*/
+                Faire pour que quand le editText est vide, cela fonctionne comme s'il était à 0
+                */
 
         //TODO : When the app starting, transferTime radio is preselected
         /*
@@ -262,50 +262,45 @@ class MainActivity : AppCompatActivity() {
 
         when (spinner.selectedItem) {
             "Octet" -> {
-                resultValue =  (editTextData.text.toString()
-                        .toDouble() * 8)
+                resultValue =  (data * 8)
             }
             "Ko" -> {
-                resultValue =  ((editTextData.text.toString()
-                        .toDouble() * 8)*1024)
+                resultValue =  ((data * 8)*1024)
             }
             "Mo" -> {
-                resultValue =  (((editTextData.text.toString()
-                        .toDouble() * 8)*1024)*1024)
+                resultValue =  (((data * 8)*1024)*1024)
             }
             "Go" -> {
-                resultValue =  ((((editTextData.text.toString()
-                        .toDouble() * 8)*1024)*1024)*1024)
+                resultValue =  ((((data * 8)*1024)*1024)*1024)
             }
             "To" -> {
-                resultValue =  (((((editTextData.text.toString()
-                        .toDouble() * 8)*1024)*1024)*1024)*1024)
+                resultValue =  (((((data * 8)*1024)*1024)*1024)*1024)
             }
         }
         when (spinner2.selectedItem) {
             "B/s" -> {
-                resultValue /= editTextBandwidth.text.toString().toDouble() //TODO : modify this
+                resultValue /= bandwidth
             }
             "Kb/s" -> {
-                resultValue /= (editTextBandwidth.text.toString().toDouble() * 1024)
+                resultValue /= (bandwidth * 1024)
             }
             "Mb/s" -> {
-                resultValue /=  ((editTextBandwidth.text.toString().toDouble()*1024)*1024)
+                resultValue /=  ((bandwidth*1024)*1024)
             }
             "Gb/s" -> {
-                resultValue /=  (((editTextBandwidth.text.toString().toDouble()*1024)*1024)*1024)
+                resultValue /=  (((bandwidth*1024)*1024)*1024)
             }
             "O/s" -> {
-                resultValue /= (editTextBandwidth.text.toString().toDouble()*8)
+                resultValue /= (bandwidth*8)
             }
             "Ko/s" -> {
-                resultValue /= ((editTextBandwidth.text.toString().toDouble()*8)*1024)
+                resultValue /= ((bandwidth.toDouble()*8)*1024)
             }
             "Mo/s" -> {
-                resultValue /= (((editTextBandwidth.text.toString().toDouble()*8)*1024)*1024)
+                resultValue /= (((bandwidth*8)*1024)*1024)
             }
             "Go/s" -> {
-                resultValue /= ((((editTextBandwidth.text.toString().toDouble()*8)*1024)*1024)*1024)
+                resultValue /= ((((bandwidth*8)*1024)*1024)*1024)
             }
 
         }
@@ -394,30 +389,24 @@ class MainActivity : AppCompatActivity() {
 
     private fun calculateBandwidth(days:Int, hours:Int, minutes:Int, seconds:Double, data:Double){
         var resultValue = 0.0
-        var totalSec: Double = (daysTF.text.toString().toInt() * 86400) + (hoursTF.text.toString()
-                    .toInt() * 3600) + (minutesTF.text.toString()
-                    .toInt() * 60) + secondsTF.text.toString().toDouble()
+        var totalSec: Double = (days * 86400) + (hours * 3600) + (minutes * 60) + seconds
 
         when (spinner.selectedItem) {
             "Octet" -> {
-                resultValue = ((editTextData.text.toString().toDouble())*8)/totalSec
+                resultValue = (data*8)/totalSec
             }
             "Ko" -> {
-                resultValue = (((editTextData.text.toString()
-                        .toDouble()) * 8) * 1024) / totalSec
+                resultValue = ((data * 8) * 1024) / totalSec
 
             }
             "Mo" -> {
-                resultValue = ((((editTextData.text.toString()
-                        .toDouble()) * 8) * 1024) * 1024) / totalSec
+                resultValue = (((data * 8) * 1024) * 1024) / totalSec
             }
             "Go" -> {
-                resultValue = (((((editTextData.text.toString()
-                        .toDouble()) * 8) * 1024) * 1024) * 1024) / totalSec
+                resultValue = ((((data * 8) * 1024) * 1024) * 1024) / totalSec
             }
             "To" -> {
-                resultValue = ((((((editTextData.text.toString()
-                        .toDouble()) * 8) * 1024) * 1024) * 1024) * 1024) / totalSec
+                resultValue = (((((data * 8) * 1024) * 1024) * 1024) * 1024) / totalSec
             }
         }
 
@@ -427,7 +416,6 @@ class MainActivity : AppCompatActivity() {
             }
             "Kb/s" -> {
                 resultValue /= 1024
-
             }
             "Mb/s" -> {
                 resultValue = resultValue / 1024 / 1024
@@ -436,11 +424,10 @@ class MainActivity : AppCompatActivity() {
                 resultValue = resultValue /1024 / 1024 / 1024
             }
             "O/s" -> {
-                resultValue = resultValue * 8
+                resultValue *= 8
             }
             "Ko/s" -> {
                 resultValue /= 1024 * 8
-
             }
             "Mo/s" -> {
                 resultValue = resultValue / 1024 / 1024 * 8
