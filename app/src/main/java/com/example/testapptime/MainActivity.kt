@@ -28,14 +28,13 @@ class MainActivity : AppCompatActivity() {
                 Faire pour que quand le editText est vide, cela fonctionne comme s'il était à 0
                 */
 
-        //TODO : When the app starting, transferTime radio is preselected
-        /*
+        //When the app starting, transferTime radio is preselected
         radioGroup.check(R.id.transferTime)
         daysTF.isEnabled = false
         hoursTF.isEnabled = false
         minutesTF.isEnabled = false
         secondsTF.isEnabled = false
-        */
+
 
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
