@@ -1,19 +1,14 @@
 package com.example.testapptime
 
 import android.annotation.SuppressLint
-import android.graphics.ColorSpace
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
-import android.widget.EditText
 import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
 import kotlinx.android.synthetic.main.activity_main.*
-import java.math.RoundingMode
-import java.text.DecimalFormat
 
 class MainActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
@@ -25,8 +20,7 @@ class MainActivity : AppCompatActivity() {
                 Augmenter la taille du radio
                 Changer le titre de l'app
                 Ajouter un bouton clear (un pour jour mois années+ un pour data + un pour bdwidth)
-                Faire pour que quand le editText est vide, cela fonctionne comme s'il était à 0
-                */
+        */
 
         //When the app starting, transferTime radio is preselected
         radioGroup.check(R.id.transferTime)
@@ -35,6 +29,15 @@ class MainActivity : AppCompatActivity() {
         minutesTF.isEnabled = false
         secondsTF.isEnabled = false
 
+        //Clear all Text Field
+        clearBtn.setOnClickListener {
+            daysTF.setText("0")
+            hoursTF.setText("0")
+            minutesTF.setText("0")
+            secondsTF.setText("0")
+            editTextData.setText("0")
+            editTextBandwidth.setText("0")
+        }
 
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
