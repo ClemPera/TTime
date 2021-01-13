@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Test app time</string>
+    <string name="app_name">Calculer le temps et la bande passante</string>
     <string-array name="octet">
         <item>Octet</item>
         <item>Ko</item>

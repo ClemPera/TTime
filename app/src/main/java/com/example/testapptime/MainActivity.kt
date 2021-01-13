@@ -17,9 +17,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         /*TODO : Remplacer "bande passante" par "débit" pour moins long?
-                Augmenter la taille du radio
-                Changer le titre de l'app
-                Ajouter un bouton clear (un pour jour mois années+ un pour data + un pour bdwidth)
+                 Augmenter la taille du radio
+                 Changer le titre de l'app
         */
 
         //When the app starting, transferTime radio is preselected
