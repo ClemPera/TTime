@@ -29,8 +29,8 @@ class MainActivity : AppCompatActivity() {
             hoursTF.setText("0")
             minutesTF.setText("0")
             secondsTF.setText("0")
-            editTextData.setText("0")
-            editTextBandwidth.setText("0")
+            editTextData.setText("0.00")
+            editTextBandwidth.setText("0.00")
         }
 
         //Enable or disable text field if checked in radio
