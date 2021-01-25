@@ -16,11 +16,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        /*TODO : Remplacer "bande passante" par "débit" pour moins long?
-                 Augmenter la taille du radio
-                 Changer le titre de l'app
-        */
-
         //When the app starting, transferTime radio is preselected
         radioGroup.check(R.id.transferTime)
         daysTF.isEnabled = false
@@ -38,6 +33,7 @@ class MainActivity : AppCompatActivity() {
             editTextBandwidth.setText("0")
         }
 
+        //Enable or disable text field if checked in radio
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.transferTime -> {
@@ -69,6 +65,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        //Change text result if daysTF modified
         daysTF.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
                     if(daysTF.text.isNotEmpty() && hoursTF.text.isNotEmpty() && minutesTF.text.isNotEmpty() && secondsTF.text.isNotEmpty() && editTextBandwidth.text.isNotEmpty())
@@ -89,6 +86,7 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
+        //Change text result if hoursTF modified
         hoursTF.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
                 if(daysTF.text.isNotEmpty() && hoursTF.text.isNotEmpty() && minutesTF.text.isNotEmpty() && secondsTF.text.isNotEmpty() && editTextBandwidth.text.isNotEmpty())
@@ -109,6 +107,7 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
+        //Change text result if minutesTF modified
         minutesTF.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
                 if(daysTF.text.isNotEmpty() && hoursTF.text.isNotEmpty() && minutesTF.text.isNotEmpty() && secondsTF.text.isNotEmpty() && editTextBandwidth.text.isNotEmpty())
@@ -129,6 +128,7 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
+        //Change text result if secondsTF modified
         secondsTF.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
                 if(daysTF.text.isNotEmpty() && hoursTF.text.isNotEmpty() && minutesTF.text.isNotEmpty() && secondsTF.text.isNotEmpty() && editTextBandwidth.text.isNotEmpty())
@@ -150,6 +150,7 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
+        //Change text result if editTextData modified
         editTextData.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
                 if (transferTime.isChecked)
@@ -173,6 +174,7 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
+        //Change text result if editTextBandwidth modified
         editTextBandwidth.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
                 if (transferTime.isChecked)
@@ -196,6 +198,7 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
+        //Change text result if spinner modified
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -226,6 +229,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        //Change text result if spinner2 modified
         spinner2.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
 
@@ -295,7 +299,7 @@ class MainActivity : AppCompatActivity() {
                 resultValue /= (bandwidth*8)
             }
             "Ko/s" -> {
-                resultValue /= ((bandwidth.toDouble()*8)*1024)
+                resultValue /= ((bandwidth*8)*1024)
             }
             "Mo/s" -> {
                 resultValue /= (((bandwidth*8)*1024)*1024)

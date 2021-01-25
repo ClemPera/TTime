@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="bytes">
+        <item>Octet</item>
+        <item>Ko</item>
+        <item>Mo</item>
+        <item>Go</item>
+        <item>To</item>
+    </string-array>
+    <string-array name="bitpersec">
+        <item>b/s</item>
+        <item>Kb/s</item>
+        <item>Mb/s</item>
+        <item>Gb/s</item>
+        <item>O/s</item>
+        <item>Ko/s</item>
+        <item>Mo/s</item>
+        <item>Go/s</item>
+    </string-array>
+    <string name="app_name">Calculer le temps et la bande passante</string>
+    <string name="data">Données :</string>
+    <string name="bandwidth">Bande passante :</string>
+    <string name="radio1">Calculer le temps de transfert</string>
+    <string name="radio2">Calculer la quantité de données transférables</string>
+    <string name="radio3">Calculer la bande passante</string>
+    <string name="Days">Jours</string>
+    <string name="Hours">Heures</string>
+    <string name="Minutes">Minutes</string>
+    <string name="Seconds">Secondes</string>
+    <string name="Clear">Effacer</string>
+</resources>

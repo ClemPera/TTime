@@ -1,20 +1,30 @@
 <resources>
     <string name="app_name">Calculer le temps et la bande passante</string>
-    <string-array name="octet">
-        <item>Octet</item>
-        <item>Ko</item>
-        <item>Mo</item>
-        <item>Go</item>
-        <item>To</item>        
+    <string-array name="bytes">
+        <item>Byte</item>
+        <item>KB</item>
+        <item>MB</item>
+        <item>GB</item>
+        <item>TB</item>
     </string-array>
     <string-array name="bitpersec">
-        <item>B/s</item>
+        <item>b/s</item>
         <item>Kb/s</item>
         <item>Mb/s</item>
         <item>Gb/s</item>
-        <item>O/s</item>
-        <item>Ko/s</item>
-        <item>Mo/s</item>
-        <item>Go/s</item>
+        <item>B/s</item>
+        <item>KB/s</item>
+        <item>MB/s</item>
+        <item>GB/s</item>
     </string-array>
+    <string name="data">Data :</string>
+    <string name="bandwidth">Bandwidth :</string>
+    <string name="radio1">Calculate transfer time</string>
+    <string name="radio2">Calculate data quantity</string>
+    <string name="radio3">Calculate bandwidth</string>
+    <string name="Days">Days</string>
+    <string name="Hours">Hours</string>
+    <string name="Minutes">Minutes</string>
+    <string name="Seconds">Seconds</string>
+    <string name="Clear">Clear</string>
 </resources>
