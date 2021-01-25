@@ -1,4 +1,4 @@
-package com.example.testapptime
+package com.example.calculatetransfertimedataquantitybandwidth
 
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity

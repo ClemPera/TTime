@@ -1,4 +1,4 @@
-package com.example.testapptime
+package com.example.calculatetransfertimedataquantitybandwidth
 
 import org.junit.Test
 

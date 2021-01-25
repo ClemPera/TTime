@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "Test app time"
+rootProject.name = "Calculate Transfer time Data quantity bandwidth"
