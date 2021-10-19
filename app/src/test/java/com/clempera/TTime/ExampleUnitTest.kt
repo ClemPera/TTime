@@ -1,4 +1,4 @@
-package com.example.calculatetransfertimedataquantitybandwidth
+package com.clempera.TTime
 
 import org.junit.Test
 

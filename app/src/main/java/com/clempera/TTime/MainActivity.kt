@@ -1,4 +1,4 @@
-package com.example.calculatetransfertimedataquantitybandwidth
+package com.clempera.TTime
 
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +9,10 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
+
+//TODO : Modifier message Toast pour qu'il soit traduit
+//       Traduction b/s Bytes.......
+//       Toast qui ne disparait pas qu'après un temps long
 
 class MainActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
@@ -266,24 +270,24 @@ class MainActivity : AppCompatActivity() {
         var resultValue = 0.0
 
         when (spinner.selectedItem) {
-            "Octet" -> {
+            "Byte" -> {
                 resultValue =  (data * 8)
             }
-            "Ko" -> {
+            "KB" -> {
                 resultValue =  ((data * 8)*1024)
             }
-            "Mo" -> {
+            "MB" -> {
                 resultValue =  (((data * 8)*1024)*1024)
             }
-            "Go" -> {
+            "GB" -> {
                 resultValue =  ((((data * 8)*1024)*1024)*1024)
             }
-            "To" -> {
+            "TB" -> {
                 resultValue =  (((((data * 8)*1024)*1024)*1024)*1024)
             }
         }
         when (spinner2.selectedItem) {
-            "B/s" -> {
+            "b/s" -> {
                 resultValue /= bandwidth
             }
             "Kb/s" -> {
@@ -295,16 +299,16 @@ class MainActivity : AppCompatActivity() {
             "Gb/s" -> {
                 resultValue /=  (((bandwidth*1024)*1024)*1024)
             }
-            "O/s" -> {
+            "B/s" -> {
                 resultValue /= (bandwidth*8)
             }
-            "Ko/s" -> {
+            "KB/s" -> {
                 resultValue /= ((bandwidth*8)*1024)
             }
-            "Mo/s" -> {
+            "MB/s" -> {
                 resultValue /= (((bandwidth*8)*1024)*1024)
             }
-            "Go/s" -> {
+            "GB/s" -> {
                 resultValue /= ((((bandwidth*8)*1024)*1024)*1024)
             }
 
@@ -344,7 +348,7 @@ class MainActivity : AppCompatActivity() {
         var totalSec: Double = (days * 86400) + (hours * 3600) + (minutes * 60) + seconds
 
         when (spinner2.selectedItem) {
-            "B/s" -> {
+            "b/s" -> {
                 resultValue = (bandwidth / 8) * totalSec
             }
             "Kb/s" -> {
@@ -356,33 +360,33 @@ class MainActivity : AppCompatActivity() {
             "Gb/s" -> {
                 resultValue = ((((bandwidth / 8) * 1024) * 1024) * 1024) * totalSec
             }
-            "O/s" -> {
+            "B/s" -> {
                 resultValue = bandwidth * totalSec
             }
-            "Ko/s" -> {
+            "KB/s" -> {
                 resultValue = (bandwidth * 1024) * totalSec
             }
-            "Mo/s" -> {
+            "MB/s" -> {
                 resultValue = ((bandwidth * 1024) * 1024) * totalSec
             }
-            "Go/s" -> {
+            "GB/s" -> {
                 resultValue = (((bandwidth * 1024) * 1024) * 1024) * totalSec
             }
         }
         when(spinner.selectedItem) {
-            "Octet" -> {
+            "Byte" -> {
                 resultValue = resultValue //TODO : modify this
             }
-            "Ko" -> {
+            "KB" -> {
                 resultValue /= 1024
             }
-            "Mo" -> {
+            "MB" -> {
                 resultValue = resultValue /1024/1024
             }
-            "Go" -> {
+            "GB" -> {
                 resultValue = resultValue /1024/1024/1024
             }
-            "To" -> {
+            "TB" -> {
                 resultValue = resultValue /1024/1024/1024/1024
             }
         }
@@ -397,26 +401,26 @@ class MainActivity : AppCompatActivity() {
         var totalSec: Double = (days * 86400) + (hours * 3600) + (minutes * 60) + seconds
 
         when (spinner.selectedItem) {
-            "Octet" -> {
+            "Byte" -> {
                 resultValue = (data*8)/totalSec
             }
-            "Ko" -> {
+            "KB" -> {
                 resultValue = ((data * 8) * 1024) / totalSec
 
             }
-            "Mo" -> {
+            "MB" -> {
                 resultValue = (((data * 8) * 1024) * 1024) / totalSec
             }
-            "Go" -> {
+            "GB" -> {
                 resultValue = ((((data * 8) * 1024) * 1024) * 1024) / totalSec
             }
-            "To" -> {
+            "TB" -> {
                 resultValue = (((((data * 8) * 1024) * 1024) * 1024) * 1024) / totalSec
             }
         }
 
         when (spinner2.selectedItem) {
-            "B/s" -> {
+            "b/s" -> {
                 resultValue = resultValue //TODO : modify this
             }
             "Kb/s" -> {
@@ -428,16 +432,16 @@ class MainActivity : AppCompatActivity() {
             "Gb/s" -> {
                 resultValue = resultValue /1024 / 1024 / 1024
             }
-            "O/s" -> {
+            "B/s" -> {
                 resultValue *= 8
             }
-            "Ko/s" -> {
+            "KB/s" -> {
                 resultValue /= 1024 * 8
             }
-            "Mo/s" -> {
+            "MB/s" -> {
                 resultValue = resultValue / 1024 / 1024 * 8
             }
-            "Go/s" -> {
+            "GB/s" -> {
                 resultValue = resultValue / 1024 / 1024 / 1024 * 8
             }
         }

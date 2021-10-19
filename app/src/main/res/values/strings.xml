@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Calculer le temps et la bande passante</string>
     <string-array name="bytes">
         <item>Byte</item>
         <item>KB</item>
@@ -17,6 +17,7 @@
         <item>MB/s</item>
         <item>GB/s</item>
     </string-array>
+    <string name="app_name">TTime</string>
     <string name="data">Data :</string>
     <string name="bandwidth">Bandwidth :</string>
     <string name="radio1">Calculate transfer time</string>
@@ -27,4 +28,5 @@
     <string name="Minutes">Minutes</string>
     <string name="Seconds">Seconds</string>
     <string name="Clear">Clear</string>
+    <string name="MoreThan0">Please enter a value greater than zero</string>
 </resources>

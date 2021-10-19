@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="bytes">
+        <item>Byte</item>
+        <item>KB</item>
+        <item>MB</item>
+        <item>GB</item>
+        <item>TB</item>
+    </string-array>
+    <string-array name="bitpersec">
+        <item>b/s</item>
+        <item>Kb/s</item>
+        <item>Mb/s</item>
+        <item>Gb/s</item>
+        <item>B/s</item>
+        <item>KB/s</item>
+        <item>MB/s</item>
+        <item>GB/s</item>
+    </string-array>
+    <!--
+    <string-array name="bytes">
         <item>Octet</item>
         <item>Ko</item>
         <item>Mo</item>
@@ -17,7 +35,8 @@
         <item>Mo/s</item>
         <item>Go/s</item>
     </string-array>
-    <string name="app_name">Calculer le temps et la bande passante</string>
+    -->
+    <string name="app_name">TTime</string>
     <string name="data">Données :</string>
     <string name="bandwidth">Bande passante :</string>
     <string name="radio1">Calculer le temps de transfert</string>
@@ -28,4 +47,5 @@
     <string name="Minutes">Minutes</string>
     <string name="Seconds">Secondes</string>
     <string name="Clear">Effacer</string>
+    <string name="MoreThan0">Veuillez saisir une valeur supérieur à zero</string>
 </resources>
