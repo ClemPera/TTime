@@ -1,0 +1,6 @@
+Simple android app to calculate :
+
+    - Transfer time from data quantity and bandwidth
+    - Data quantity from transfer time and bandwidth
+    - Bandwidth from transfer time and data quantity
+
