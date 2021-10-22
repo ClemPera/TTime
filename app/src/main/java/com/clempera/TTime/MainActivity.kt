@@ -1,18 +1,14 @@
 package com.clempera.TTime
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
-
-//TODO : Modifier message Toast pour qu'il soit traduit
-//       Traduction b/s Bytes.......
-//       Toast qui ne disparait pas qu'après un temps long
 
 class MainActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
@@ -26,6 +22,8 @@ class MainActivity : AppCompatActivity() {
         hoursTF.isEnabled = false
         minutesTF.isEnabled = false
         secondsTF.isEnabled = false
+        val mToast = Toast.makeText(this, "", Toast.LENGTH_SHORT)
+        mToast.setText(resources.getString(R.string.MoreThan0))
 
         //Clear all Text Field
         clearBtn.setOnClickListener {
@@ -78,12 +76,12 @@ class MainActivity : AppCompatActivity() {
                             if (editTextBandwidth.text.toString().toDouble() != 0.0)
                                 calculateDataQuantity(daysTF.text.toString().toInt(), hoursTF.text.toString().toInt(), minutesTF.text.toString().toInt(), secondsTF.text.toString().toDouble(), editTextBandwidth.text.toString().toDouble())
                             else
-                                Toast.makeText(this@MainActivity,"Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                                mToast.show()
                         else if (bandwidth.isChecked)
                             if (editTextData.text.toString().toDouble() != 0.0)
                                 calculateBandwidth(daysTF.text.toString().toInt(), hoursTF.text.toString().toInt(), minutesTF.text.toString().toInt(), secondsTF.text.toString().toDouble(), editTextData.text.toString().toDouble())
                             else
-                                Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                                mToast.show()
                     }
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -99,12 +97,12 @@ class MainActivity : AppCompatActivity() {
                         if (editTextBandwidth.text.toString().toDouble() != 0.0)
                             calculateDataQuantity(daysTF.text.toString().toInt(), hoursTF.text.toString().toInt(), minutesTF.text.toString().toInt(), secondsTF.text.toString().toDouble(), editTextBandwidth.text.toString().toDouble())
                         else
-                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                            mToast.show()
                     else if (bandwidth.isChecked)
                         if (editTextData.text.toString().toDouble() != 0.0)
                             calculateBandwidth(daysTF.text.toString().toInt(), hoursTF.text.toString().toInt(), minutesTF.text.toString().toInt(), secondsTF.text.toString().toDouble(), editTextData.text.toString().toDouble())
                         else
-                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                            mToast.show()
                 }
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -120,12 +118,12 @@ class MainActivity : AppCompatActivity() {
                         if (editTextBandwidth.text.toString().toDouble() != 0.0)
                             calculateDataQuantity(daysTF.text.toString().toInt(), hoursTF.text.toString().toInt(), minutesTF.text.toString().toInt(), secondsTF.text.toString().toDouble(), editTextBandwidth.text.toString().toDouble())
                         else
-                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                            mToast.show()
                     else if (bandwidth.isChecked)
                         if (editTextData.text.toString().toDouble() != 0.0)
                             calculateBandwidth(daysTF.text.toString().toInt(), hoursTF.text.toString().toInt(), minutesTF.text.toString().toInt(), secondsTF.text.toString().toDouble(), editTextData.text.toString().toDouble())
                         else
-                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                            mToast.show()
                 }
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -141,12 +139,12 @@ class MainActivity : AppCompatActivity() {
                         if (editTextBandwidth.text.toString().toDouble() != 0.0)
                             calculateDataQuantity(daysTF.text.toString().toInt(), hoursTF.text.toString().toInt(), minutesTF.text.toString().toInt(), secondsTF.text.toString().toDouble(), editTextBandwidth.text.toString().toDouble())
                         else
-                            Toast.makeText(this@MainActivity,"Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                            mToast.show()
                     else if (bandwidth.isChecked) {
                         if (editTextData.text.toString().toDouble() != 0.0)
                             calculateBandwidth(daysTF.text.toString().toInt(), hoursTF.text.toString().toInt(), minutesTF.text.toString().toInt(), secondsTF.text.toString().toDouble(), editTextData.text.toString().toDouble())
                         else
-                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                            mToast.show()
                     }
                 }
             }
@@ -163,7 +161,7 @@ class MainActivity : AppCompatActivity() {
                         if (editTextBandwidth.text.toString().toDouble() != 0.0 && editTextData.text.toString().toDouble() != 0.0)
                             calculateTime(editTextData.text.toString().toDouble(), editTextBandwidth.text.toString().toDouble())
                         else
-                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                            mToast.show()
                 }
                 else if (bandwidth.isChecked)
                 {
@@ -171,7 +169,7 @@ class MainActivity : AppCompatActivity() {
                         if (editTextData.text.toString().toDouble() != 0.0)
                             calculateBandwidth(daysTF.text.toString().toInt(), hoursTF.text.toString().toInt(), minutesTF.text.toString().toInt(), secondsTF.text.toString().toDouble(), editTextData.text.toString().toDouble())
                         else
-                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                            mToast.show()
                 }
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -187,7 +185,7 @@ class MainActivity : AppCompatActivity() {
                         if (editTextBandwidth.text.toString().toDouble() != 0.0 && editTextData.text.toString().toDouble() != 0.0)
                             calculateTime(editTextData.text.toString().toDouble(), editTextBandwidth.text.toString().toDouble())
                         else
-                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                            mToast.show()
                 }
                 else if (dataQuantity.isChecked)
                 {
@@ -195,7 +193,7 @@ class MainActivity : AppCompatActivity() {
                         if (editTextBandwidth.text.toString().toDouble() != 0.0)
                             calculateDataQuantity(daysTF.text.toString().toInt(), hoursTF.text.toString().toInt(), minutesTF.text.toString().toInt(), secondsTF.text.toString().toDouble(), editTextBandwidth.text.toString().toDouble())
                         else
-                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                            mToast.show()
                 }
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -212,7 +210,7 @@ class MainActivity : AppCompatActivity() {
                         if (editTextBandwidth.text.toString().toDouble() != 0.0 && editTextData.text.toString().toDouble() != 0.0)
                             calculateTime(editTextData.text.toString().toDouble(), editTextBandwidth.text.toString().toDouble())
                         else
-                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                            mToast.show()
                 }
                 else if (dataQuantity.isChecked)
                 {
@@ -220,7 +218,7 @@ class MainActivity : AppCompatActivity() {
                         if (editTextBandwidth.text.toString().toDouble() != 0.0)
                             calculateDataQuantity(daysTF.text.toString().toInt(), hoursTF.text.toString().toInt(), minutesTF.text.toString().toInt(), secondsTF.text.toString().toDouble(), editTextBandwidth.text.toString().toDouble())
                         else
-                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                            mToast.show()
                 }
                 else if (bandwidth.isChecked)
                 {
@@ -228,7 +226,7 @@ class MainActivity : AppCompatActivity() {
                         if (editTextData.text.toString().toDouble() != 0.0)
                             calculateBandwidth(daysTF.text.toString().toInt(), hoursTF.text.toString().toInt(), minutesTF.text.toString().toInt(), secondsTF.text.toString().toDouble(), editTextData.text.toString().toDouble())
                         else
-                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                            mToast.show()
                 }
             }
         }
@@ -244,7 +242,7 @@ class MainActivity : AppCompatActivity() {
                         if (editTextBandwidth.text.toString().toDouble() != 0.0 && editTextData.text.toString().toDouble() != 0.0)
                             calculateTime(editTextData.text.toString().toDouble(), editTextBandwidth.text.toString().toDouble())
                         else
-                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                            mToast.show()
                 }
                 else if (dataQuantity.isChecked)
                 {
@@ -252,7 +250,7 @@ class MainActivity : AppCompatActivity() {
                         if (editTextBandwidth.text.toString().toDouble() != 0.0)
                             calculateDataQuantity(daysTF.text.toString().toInt(), hoursTF.text.toString().toInt(), minutesTF.text.toString().toInt(), secondsTF.text.toString().toDouble(), editTextBandwidth.text.toString().toDouble())
                         else
-                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                            mToast.show()
                 }
                 else if (bandwidth.isChecked)
                 {
@@ -260,7 +258,7 @@ class MainActivity : AppCompatActivity() {
                         if (editTextData.text.toString().toDouble() != 0.0)
                             calculateBandwidth(daysTF.text.toString().toInt(), hoursTF.text.toString().toInt(), minutesTF.text.toString().toInt(), secondsTF.text.toString().toDouble(), editTextData.text.toString().toDouble())
                         else
-                            Toast.makeText(this@MainActivity, "Veuillez choisir une valeur supérieur à zero", Toast.LENGTH_SHORT).show()
+                            mToast.show()
                 }
             }
         }
